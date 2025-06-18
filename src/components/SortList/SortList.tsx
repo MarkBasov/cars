@@ -26,8 +26,6 @@ const SortList = () => {
  
   return (
     <>
-      <p>Sort By</p>
-
       <Select value={sort} onChange={handleSortSelected}>
         <MenuItem value="">Не выбрана</MenuItem>
         <MenuItem value="asc">Цена по возрастанию</MenuItem>

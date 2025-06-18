@@ -4,8 +4,6 @@ import SortList from "@/components/SortList/SortList";
 import CardPagination from "@/components/CardPagination/CardPagination";
 import { getCarList } from "@/entities/car/api";
 
-import s from './page.module.scss'
-
 export interface ISearchParams {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
@@ -29,7 +27,7 @@ export default async function Page(props: Readonly<ISearchParams>) {
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <div className={s.container}>
+        <div className='flex flex-col gap-[32px] items-center'>
           <SortList />
           <CardList cars={cars} />
           <CardPagination pagination={pagination} />
