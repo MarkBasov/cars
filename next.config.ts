@@ -3,13 +3,15 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
-      // {
-      //   protocol: "https",
-      //   hostname: "assets.vercel.com",
-      //   port: "",
-      //   pathname: "/image/upload/**",
-      //   search: "",
-      // },
+      {
+        hostname: 'https://testing-api.ru-rating.ru/*',
+      },
+      {
+        hostname: 'https://ru-msk-dr3-1.store.cloud.mts.ru/*'
+      },
+      {
+        hostname: 'ru-msk-dr3-1.store.cloud.mts.ru'
+      }
     ],
   },
 };
