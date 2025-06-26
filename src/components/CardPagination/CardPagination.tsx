@@ -2,6 +2,7 @@
 
 import { TPagination } from "@/entities/car/types"
 import useParamSetter from "@/hooks/paramSetter"
+import { FIRST_PAGE, LIMIT_PARAMETER, PAGE_LIMIT, PAGE_PARAMETER } from "@/shared/utils"
 import { Pagination, Stack } from "@mui/material"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useEffect } from "react"
@@ -19,17 +20,17 @@ const CardPagination = (props: CardPaginationProps) => {
 
   const { createQueryString } = useParamSetter()
 
-  const currentPage = searchParams?.get('_page') || '1'
+  const currentPage = searchParams?.get(PAGE_PARAMETER) || FIRST_PAGE
 
   useEffect(() => {
-    if (searchParams && !searchParams.has('_page')) {
-      router.push(pathname + '?' + createQueryString('_page', '1'))
-      router.push(pathname + '?' + createQueryString('_limit', '12'))
+    if (searchParams && !searchParams.has(PAGE_PARAMETER)) {
+      router.push(pathname + '?' + createQueryString(PAGE_PARAMETER, FIRST_PAGE))
+      router.push(pathname + '?' + createQueryString(LIMIT_PARAMETER, PAGE_LIMIT))
     }
   }, [])
 
   const handlePaginationClick = (e: unknown, page: number) => {
-    router.push(pathname + '?' + createQueryString('_page', String(page)))
+    router.push(pathname + '?' + createQueryString(PAGE_PARAMETER, String(page)))
   }
 
   return (

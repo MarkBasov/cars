@@ -3,6 +3,7 @@ import CardList from "@/components/CardList/CardList";
 import SortList from "@/components/SortList/SortList";
 import CardPagination from "@/components/CardPagination/CardPagination";
 import { getCarList } from "@/entities/car/api";
+import { FIRST_PAGE, LIMIT_PARAMETER, ORDER_PARAMETER, PAGE_LIMIT, PAGE_PARAMETER, SORT_PARAMETER } from "@/shared/utils";
 
 export interface ISearchParams {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
@@ -12,16 +13,16 @@ export default async function Page(props: Readonly<ISearchParams>) {
   const { searchParams } = props
   const params = await searchParams
 
-  const page = params['_page'] || '1'
-  const limit = params['_limit'] || '12'
-  const order = params['_order']
+  const page = params[PAGE_PARAMETER] || FIRST_PAGE
+  const limit = params[LIMIT_PARAMETER] || PAGE_LIMIT
+  const order = params[ORDER_PARAMETER]
   const sort = 'price'
 
   const { cars, pagination } = await getCarList({
-    '_page': page,
-    '_limit': limit,
-    '_order': order,
-    ...('_order' in params ? {'_sort': sort} : {})
+    [PAGE_PARAMETER]: page,
+    [LIMIT_PARAMETER]: limit,
+    [ORDER_PARAMETER]: order,
+    ...(ORDER_PARAMETER in params ? {[SORT_PARAMETER]: sort} : {})
   }).then(({ data }) => ({ cars: data.data, pagination: data.meta })).catch(() => ({ cars: null, pagination: null }))
 
   return (

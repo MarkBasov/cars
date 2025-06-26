@@ -1,6 +1,7 @@
 'use client'
 
 import useParamSetter from "@/hooks/paramSetter"
+import { ORDER_PARAMETER } from "@/shared/utils"
 import { MenuItem, Select, SelectChangeEvent } from "@mui/material"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useState } from "react"
@@ -12,15 +13,15 @@ const SortList = () => {
 
   const { createQueryString, deleteQueryString } = useParamSetter()
 
-  const [sort, setSort] = useState(searchParams?.get('_order') || '')
+  const [sort, setSort] = useState(searchParams?.get(ORDER_PARAMETER) || '')
 
   const handleSortSelected = (event: SelectChangeEvent) => {
     setSort(event.target.value)
  
     if (event.target.value === '') {
-      router.replace(pathname + '?' + deleteQueryString('_order'))
+      router.replace(pathname + '?' + deleteQueryString(ORDER_PARAMETER))
     } else {
-      router.push(pathname + '?' + createQueryString('_order', event.target.value))
+      router.push(pathname + '?' + createQueryString(ORDER_PARAMETER, event.target.value))
     }
   }
  
