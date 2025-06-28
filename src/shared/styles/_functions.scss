@@ -1,0 +1,11 @@
+@function pxBetweenSizes(
+  $startSize,
+  $endSize,
+  $startScreenSize,
+  $endScreenSize
+) {
+  @return calc(
+    #{$startSize}px + #{($endSize - $startSize)} *
+      ((100vw - #{$startScreenSize}px) / ($endScreenSize - $startScreenSize))
+  );
+}

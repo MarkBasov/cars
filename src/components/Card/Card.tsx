@@ -1,6 +1,7 @@
 'use client'
 
-import { MouseEvent, useState } from "react";
+import Image from "next/image";
+import { useState } from "react";
 import { Swiper, SwiperClass, SwiperSlide } from "swiper/react"
 import { Controller, Navigation, Pagination } from "swiper/modules"
 import { TCar } from "@/entities/car/types"
@@ -8,8 +9,15 @@ import { TCar } from "@/entities/car/types"
 import 'swiper/css';
 import 'swiper/css/pagination';
 
+import s from './Card.module.scss'
+
 interface CardProps {
   car: TCar
+}
+
+const imageStyle = {
+  width: '100vw',
+  height: 'auto',
 }
 
 const Card = (props: CardProps) => {
@@ -17,7 +25,7 @@ const Card = (props: CardProps) => {
 
   const [controllerSwiper, setControllerSwiper] = useState<SwiperClass | null>(null)
 
-  const handleMouseEnter = (idx: number) => (e: MouseEvent<HTMLDivElement> | undefined) => {
+  const handleMouseEnter = (idx: number) => () => {
     controllerSwiper?.slideTo(Number(idx), 0)
   }
 
@@ -31,6 +39,7 @@ const Card = (props: CardProps) => {
             <div key={idx} className="flex-auto w-full" onMouseEnter={handleMouseEnter(idx)}></div>
           ))}
         </div>
+
         <Swiper
           pagination
           className="rounded-tl-xl rounded-tr-xl absolute h-full z-10 w-full"
@@ -39,15 +48,19 @@ const Card = (props: CardProps) => {
         >
           {listLimitedCarImages.map((image, index) => (
             <SwiperSlide key={index}>
-              {/* <Image src={image} alt='car-card' fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" /> */}
-              <img src={image} alt='car-card' />
+              <Image style={imageStyle} width={400} height={300} src={image} alt='car-card' objectFit="contain" />
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
-      <div className="card-body px-2.5 h-20 max-h-20 text-xs sm:text-sm md:text-md lg:text-lg flex flex-col-reverse justify-center">
-        <h2 className="card-title">{car.mark_id} {car.folder_id}</h2>
-        <p>{car.price} ₽</p>
+
+      <div className={`${s.card__body} px-2.5 h-28 max-h-28 flex flex-col justify-center`}>
+        <p className="font-semibold">{car.price} ₽</p>
+        <p className={s.card__name}>{car.mark_id} {car.folder_id}</p>
+        <div className={`${s.card__footer} flex flex-col text-gray-500 md:flex-row md:gap-2`}>
+          <p>Год выпуска: {car.year}</p>
+          <p>Пробег: {car.run} км</p>
+        </div>
       </div>
     </div>
   )

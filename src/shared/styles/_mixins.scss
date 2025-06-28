@@ -1,0 +1,50 @@
+
+@use "sass:map";
+
+@mixin min-width-media($width) {
+  @media (min-width: $width) {
+    @content;
+  }
+}
+@mixin max-width-media($width) {
+  @media (max-width: $width) {
+    @content;
+  }
+}
+
+@mixin text-px-to-vw-size(
+  $mobileSmall: 12,
+  $mobileMedium: 17,
+  $tabletSmall: 26
+) {
+  @include min-width-media(map.get($grid-breakpoints, 'mobile_xs')) {
+    font-size: pxBetweenSizes($mobileSmall, $mobileMedium, 0, 375);
+  }
+
+  @include min-width-media(map.get($grid-breakpoints, 'mobile_s')) {
+    font-size: pxBetweenSizes($mobileSmall, $mobileMedium, 375, 534);
+  }
+
+  @include min-width-media(map.get($grid-breakpoints, 'mobile_sm')) {
+    font-size: pxBetweenSizes($mobileMedium, $tabletSmall, 534, 820);
+  }
+
+  @include min-width-media(map.get($grid-breakpoints, 'tablet_md')) {
+    font-size: #{$tabletSmall}px;
+  }
+}
+
+@mixin text-paragraph($mobileS: 18, $mobileSM: 24, $tablet: 18) {
+  font-weight: 300;
+
+  @include text-px-to-vw-size($mobileS, $mobileSM, $tablet);
+}
+
+@mixin text-ellipsis ($maxLines: 3) {
+  display: -webkit-box;
+  -webkit-line-clamp: $maxLines; /* Ограничение по строкам */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+}

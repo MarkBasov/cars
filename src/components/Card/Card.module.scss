@@ -1,0 +1,13 @@
+@import "@/shared/styles";
+
+.card__body {
+  @include text-paragraph(14, 14, 18);
+}
+
+.card__name {
+  @include text-ellipsis(1);
+}
+
+.card__footer {
+  @include text-paragraph(12, 12, 16);
+}
