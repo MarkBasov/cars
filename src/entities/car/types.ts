@@ -8,6 +8,8 @@ export type TCar = {
   folder_id: string,
   price: number,
   unique_id: number
+  year: number
+  run: number
 }
 
 export type TPagination = {
